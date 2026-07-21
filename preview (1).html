@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>温燕平 - 个人简历</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --secondary: #f97316;
+            --bg-main: #ffffff;
+            --bg-card: #f8fafc;
+            --bg-nav: rgba(255,255,255,0.92);
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --text-light: #94a3b8;
+            --border: #e2e8f0;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+            --transition: all 200ms ease;
+        }
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --secondary: #fb923c;
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --bg-nav: rgba(30,41,59,0.92);
+            --text-main: #f1f5f9;
+            --text-sub: #cbd5e1;
+            --text-light: #64748b;
+            --border: #334155;
+            --shadow: 0 4px 12px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.65;
+            transition: var(--transition);
+            padding-top: 72px;
+        }
+        @media print {
+            body {
+                padding-top: 0;
+                background: #fff !important;
+                color: #000 !important;
+            }
+            nav, .back-top, .theme-btn, .print-btn, .copy-btn {
+                display: none !important;
+            }
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+            }
+            .tab-buttons {
+                display: none !important;
+            }
+            .tab-panel {
+                display: block !important;
+            }
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+            backdrop-filter: blur(8px);
+            background: var(--bg-nav);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5vw;
+            z-index: 999;
+            transition: var(--transition);
+        }
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-sub);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        .theme-btn, .print-btn {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+        .theme-btn:hover, .print-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+        section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 250ms ease forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .hero {
+            padding: 3rem 0;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (max-width:768px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+        .hero-title h1 {
+            font-size: 2.6rem;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .hero-desc {
+            color: var(--text-sub);
+            margin: 1rem 0 1.5rem;
+            font-size: 1.05rem;
+        }
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.8rem;
+        }
+        .badge {
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            background: rgba(37,99,235,0.12);
+            color: var(--primary);
+            border: 1px solid rgba(37,99,235,0.2);
+        }
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn-outline:hover {
+            background: rgba(37,99,235,0.1);
+        }
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 1.6rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .section-title {
+            font-size: 1.6rem;
+            margin-bottom: 1.6rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+        .tab-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.4rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        .tab-btn {
+            background: transparent;
+            color: var(--text-sub);
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+        }
+        .tab-btn.active {
+            color: var(--primary);
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+            animation: fadeIn 200ms ease;
+        }
+        .timeline-item {
+            margin-bottom: 1.8rem;
+            padding-left: 1.2rem;
+            border-left: 3px solid var(--primary-light);
+        }
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+        }
+        .timeline-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .timeline-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        .timeline-sub {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+        .timeline-list li {
+            margin: 0.5rem 0;
+            color: var(--text-sub);
+            list-style: disc;
+            margin-left: 1.2rem;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+            gap: 1.6rem;
+        }
+        .skill-row {
+            margin-bottom: 1.2rem;
+        }
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .skill-bar-wrap {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .skill-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: grid;
+            place-items: center;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 99;
+        }
+        .back-top.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">温燕平</div>
+        <div class="nav-links">
+            <a href="#hero">首页</a>
+            <a href="#highlights">核心亮点</a>
+            <a href="#experience">工作经历</a>
+            <a href="#projects">项目</a>
+            <a href="#skills">专业技能</a>
+            <a href="#edu">教育证书</a>
+        </div>
+        <div class="nav-actions">
+            <button class="theme-btn" id="themeToggle">切换深色模式</button>
+            <button class="print-btn" id="printBtn">打印简历</button>
+        </div>
+    </nav>
+    <div class="container">
+        <section id="hero" class="hero">
+            <div class="hero-title">
+                <h1>温燕平</h1>
+                <p class="hero-desc">资深行政秘书，深耕企业全流程行政统筹与财务台账记账工作，擅长高层日程管理、会务统筹、收支台账标准化搭建、跨部门协同办公，具备精细化账务核对、文档体系搭建、多任务并行处理能力，能够高效支撑企业日常运营与成本管控工作。</p>
+                <div class="badge-group" id="heroBadges"></div>
+                <div class="contact-buttons">
+                    <button class="btn-primary copy-btn" data-target="phone">复制手机号：18163239851</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>核心竞争优势</h3>
+                <ul id="heroAdvantages" style="margin-top:1rem; color:var(--text-sub);">
+                </ul>
+            </div>
+        </section>
+
+        <section id="highlights">
+            <h2 class="section-title">量化工作亮点</h2>
+            <div class="highlights" id="highlightCards"></div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">工作经历</h2>
+            <div class="tab-buttons" role="tablist">
+                <button class="tab-btn active" role="tab" aria-controls="tab-work" data-tab="work">全职工作</button>
+                <button class="tab-btn" role="tab" aria-controls="tab-intern" data-tab="intern">实习经历</button>
+            </div>
+            <div class="tab-panel active" id="tab-work" data-panel="work"></div>
+            <div class="tab-panel" id="tab-intern" data-panel="intern">暂无实习经历</div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">项目经历</h2>
+            <div class="tab-buttons" role="tablist">
+                <button class="tab-btn active" role="tab" aria-controls="tab-business" data-tab="business">企业落地项目</button>
+            </div>
+            <div class="tab-panel active" id="tab-business" data-panel="business">
+                <div class="project-grid" id="projectList"></div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">专业技能矩阵</h2>
+            <div id="skillWrap"></div>
+        </section>
+
+        <section id="edu">
+            <h2 class="section-title">教育背景 & 证书奖项</h2>
+            <div class="card" id="eduCard">
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-name">【待补】</span>
+                        <span class="timeline-date">【待补】</span>
+                    </div>
+                    <div class="timeline-sub">【待补】学历/专业</div>
+                    <ul class="timeline-list">
+                        <li>【待补】在校相关行政、财务相关实践内容</li>
+                    </ul>
+                </div>
+                <div style="margin-top:2rem;">
+                    <h3 style="margin-bottom:0.8rem;">证书与获奖</h3>
+                    <p style="color:var(--text-sub);">【待补】暂无证书奖项，可补充会计基础、办公自动化、行政管理相关证书</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    <a href="#hero" class="back-top" id="backTop">↑</a>
+    <footer>
+        <p>© <span id="updateYear">2026</span> 温燕平 个人简历 | 最后更新：2026.07.21</p>
+    </footer>
+    <script>
+        const resume = {
+            base: {
+                name: "温燕平",
+                phone: "18163239851",
+                email: "",
+                github: "",
+                linkedin: "",
+                desc: "资深行政秘书，深耕企业全流程行政统筹与财务台账记账工作，擅长高层日程管理、会务统筹、收支台账标准化搭建、跨部门协同办公，具备精细化账务核对、文档体系搭建、多任务并行处理能力，能够高效支撑企业日常运营与成本管控工作。"
+            },
+            badges: ["行政统筹", "台账记账", "会务管理", "Excel自动化", "公文撰写", "档案标准化", "费用管控"],
+            advantages: [
+                "独立完成全公司收支记账，全年账务核对零差错",
+                "统筹高层全流程秘书事务，日均协调10+场内外沟通",
+                "搭建标准化Excel记账模板，对账效率提升50%",
+                "搭建企业档案检索体系，文件查找耗时缩短40%",
+                "标准化会务流程，大型会议筹备耗时缩减35%"
+            ],
+            highlights: [
+                { title: "账务零差错管控", text: "独立负责公司全流程收支台账登记、票据整理、月度对账，全年千笔流水核对无错漏，消除账目漏记、票据丢失问题。" },
+                { title: "行政流程标准化", text: "梳理会务、接待、差旅全套执行规范，输出标准化操作手册，会议逾期事项完成率下降90%。" },
+                { title: "办公效率优化", text: "自主搭建自动化记账表格，月度财务对账时长减少50%，大幅降低行政财务重复工作量。" },
+                { title: "档案体系搭建", text: "分类归档上千份合同、报销、人事文件，建立快速检索机制，内部文件调取效率显著提升。" }
+            ],
+            work: [
+                {
+                    company: "【待补】企业单位",
+                    position: "行政秘书",
+                    date: "【待补】",
+                    sub: "统筹高层行政事务+公司日常收支记账全岗负责",
+                    points: [
+                        "全权统筹公司高层全年日程规划、差旅预订、客户来访接待，日均协调10+场对内对外沟通，全年无日程冲突、接待投诉事件。",
+                        "独立承担企业全流程收支记账工作，规范登记现金流水、员工报销、对公往来台账，按月归集票据并出具收支汇总简表，全年账务核对差错率降至0，为管理层成本管控提供完整数据支撑。",
+                        "牵头组织月度例会、商务洽谈会、外部客户交流会全流程落地，负责通知下发、会场布置、会议纪要撰写、会后待办事项跟踪闭环，累计输出正式会议纪要80+份，推动30余项跨部门工作落地执行。",
+                        "搭建纸质+电子双轨档案管理体系，梳理分类合同、报销凭证、人事文件上千份，制定统一归档规则与检索目录，文件查找耗时缩短40%。",
+                        "承接全公司公文草拟、通知下发、办公物资申领、全员考勤统计等综合行政事务，多任务并行处理保障日常办公流程稳定运转。"
+                    ]
+                }
+            ],
+            intern: [],
+            projects: [
+                {
+                    name: "公司标准化台账记账优化项目",
+                    tech: "Excel函数、台账标准化、财务流程梳理",
+                    desc: "针对原有手工记账混乱、数据难以追溯痛点，自主搭建自动化Excel记账模板，统一各部门报销单据提交规范，建立周度票据校验机制，每月输出收支分类分析简表，优化后月度对账时长减少50%，账目不符问题彻底解决，为企业成本管控提供直观数据依据。"
+                },
+                {
+                    name: "行政会务全流程标准化梳理项目",
+                    tech: "流程文档、会务SOP、跨部门协同",
+                    desc: "梳理过往会务、接待、差旅工作痛点，编制完整行政工作标准化手册，规范会前筹备、会中记录、会后跟进全环节节点，明确各事项对接责任人与时限，落地后大型会议筹备耗时缩减35%，会议待办事项逾期完成率下降90%。"
+                }
+            ],
+            skills: [
+                { name: "行政办公统筹", value: 96 },
+                { name: "收支台账记账", value: 94 },
+                { name: "Excel数据处理", value: 92 },
+                { name: "公文&会议纪要撰写", value: 90 },
+                { name: "档案分类管理", value: 88 },
+                { name: "跨部门沟通协调", value: 93 }
+            ]
+        };
+
+        // 渲染徽章
+        const badgeWrap = document.getElementById("heroBadges");
+        resume.badges.forEach(b => {
+            const span = document.createElement("span");
+            span.className = "badge";
+            span.innerText = b;
+            badgeWrap.appendChild(span);
+        });
+
+        // 渲染核心优势
+        const advWrap = document.getElementById("heroAdvantages");
+        resume.advantages.forEach(item => {
+            const li = document.createElement("li");
+            li.style.margin = "0.6rem 0";
+            li.innerText = item;
+            advWrap.appendChild(li);
+        });
+
+        // 渲染亮点卡片
+        const highlightWrap = document.getElementById("highlightCards");
+        resume.highlights.forEach(h => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `<h3 style="margin-bottom:0.8rem;color:var(--primary)">${h.title}</h3><p style="color:var(--text-sub)">${h.text}</p>`;
+            highlightWrap.appendChild(card);
+        });
+
+        // 渲染工作经历
+        const workPanel = document.getElementById("tab-work");
+        resume.work.forEach(job => {
+            const div = document.createElement("div");
+            div.className = "timeline-item";
+            let pointsHtml = "";
+            job.points.forEach(p => pointsHtml += `<li>${p}</li>`);
+            div.innerHTML = `
+                <div class="timeline-header">
+                    <span class="timeline-name">${job.company}</span>
+                    <span class="timeline-date">${job.date}</span>
+                </div>
+                <div class="timeline-sub">${job.position} | ${job.sub}</div>
+                <ul class="timeline-list">${pointsHtml}</ul>
+            `;
+            workPanel.appendChild(div);
+        });
+
+        // 渲染项目卡片
+        const projWrap = document.getElementById("projectList");
+        resume.projects.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <h3 style="margin-bottom:0.4rem">${p.name}</h3>
+                <div class="badge-group" style="margin:0.6rem 0">
+                    <span class="badge">${p.tech}</span>
+                </div>
+                <p style="color:var(--text-sub)">${p.desc}</p>
+            `;
+            projWrap.appendChild(card);
+        });
+
+        // 渲染技能进度条
+        const skillWrap = document.getElementById("skillWrap");
+        resume.skills.forEach(s => {
+            const row = document.createElement("div");
+            row.className = "skill-row";
+            row.innerHTML = `
+                <div class="skill-label">
+                    <span>${s.name}</span>
+                    <span>${s.value}%</span>
+                </div>
+                <div class="skill-bar-wrap">
+                    <div class="skill-bar" style="width:${s.value}%"></div>
+                </div>
+            `;
+            skillWrap.appendChild(row);
+        });
+
+        // Tab切换逻辑
+        const tabBtns = document.querySelectorAll(".tab-btn");
+        const tabPanels = document.querySelectorAll(".tab-panel");
+        tabBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetTab = btn.dataset.tab;
+                tabBtns.forEach(b => b.classList.remove("active"));
+                tabPanels.forEach(p => p.classList.remove("active"));
+                btn.classList.add("active");
+                document.querySelector(`[data-panel="${targetTab}"]`).classList.add("active");
+            });
+        });
+
+        // 深色模式切换
+        const themeToggle = document.getElementById("themeToggle");
+        function toggleTheme() {
+            const html = document.documentElement;
+            if(html.dataset.theme === "dark") {
+                html.removeAttribute("data-theme");
+                themeToggle.innerText = "切换深色模式";
+                localStorage.setItem("theme", "light");
+            } else {
+                html.dataset.theme = "dark";
+                themeToggle.innerText = "切换浅色模式";
+                localStorage.setItem("theme", "dark");
+            }
+        }
+        themeToggle.addEventListener("click", toggleTheme);
+        if(localStorage.getItem("theme") === "dark") toggleTheme();
+
+        // 打印按钮
+        document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+        // 返回顶部按钮
+        const backTop = document.getElementById("backTop");
+        window.addEventListener("scroll", () => {
+            if(window.scrollY > 400) backTop.classList.add("show");
+            else backTop.classList.remove("show");
+        });
+
+        // 复制手机号
+        document.querySelectorAll(".copy-btn").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                const text = resume.base.phone;
+                await navigator.clipboard.writeText(text);
+                alert("手机号已复制：" + text);
+            });
+        });
+
+        // 年份填充
+        document.getElementById("updateYear").innerText = new Date().getFullYear();
+    </script>
+</body>
+</html>
